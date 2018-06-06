@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Example CKEditor</title>
+<meta name="description" content="Example CKEditor 4.5.3 - with Free Image Browser, to add images from server, or to Upload images" />
+<style>
+<!--
+.sb {font-weight:700;}
+.si {font-style:oblique;}
+.sbi {font-weight:700; font-style:oblique;}
+pre {
+margin:1em;
+background:#ebebfe;
+padding:.2em .3em;
+font-size:1.15em;
+font-weight:600;
+color:#0001be;
+}
+//-->
+</style>
+</head>
+<body>
+<h1>Example CKEditor (4.5.3) - with Free Image Browser and Uploader Addon</h1>
+<p>A basic and simple example with CKEditor. Click on the image: <img src="ckeditor/plugins/image/imgbtn.jpg" alt="Image button" width="26" height="26" /> in editor, to test the Image Browse and Upload Addons.<br>
+- You can upload images and aufio files (MP3, OGG, WAV), they will be automatically added in CKEDITOR content.</p>
+
+<form method="post" action="#">
+ <textarea id="content" name="content"></textarea>
+</form>
+
+<h3>Instructions</h3>
+&bull; FOR UPLOAD PLUGIN: Open the "<span class="sb">plugins/iaupload.php</span>" file and change the values of the <span class="sb">$upload_dir</span> array (Lines: 6, 7), if it is necessary to replace the default path "<span class="sbi">/ckeup/</span>" with the path of the directory for Upload on your server, RELATIVE TO THE ROOT OF YOUR WEBSITE ON SERVER.<br><br>
+&bull; By default, if the uploaded file name exists in the folder for upload, it will be renamed with "<span class="si">filename_NR.ext</span>" (NR is a number). If you want to Overwrite the existing file, set value of 0 to <span class="sb">RENAME_F</span> (line 28).<br><br>
+&bull; FOR IMAGE BROWSE PLUGIN: Open the "<span class="sb">plugins/imgbrowse/imgbrowse.php</span>" file and change the value of <span class="sb">$root</span> property (Line 6), if it is necessary to replace the default path to the folder "/ckeup/" with the path of images directory on your server, RELATIVE TO THE ROOT OF YOUR WEBSITE ON SERVER.<br><br>
+&bull; Sets CHMOD writable permision (0777) to the folders for Images and Audio files on your server (if on Linux system), to allow PHP to upload the files.<br><br>
+&bull; Copy the <span class="sb">ckeditor</span> directory (with all its content) on your server.<br><br>
+&bull; To use this CKEditor with Uploader addon in your web site, specify this parameter in your page for CKEditor configuration: &nbsp; <span class="sbi">filebrowserImageUploadUrl</span><br>
+- And add this line of code, to allow audio tag in CKEditor content, if you upload Audio file:
+<blockquote class="sb">CKEDITOR.config.extraAllowedContent = 'audio[*]{*}';</blockquote><br/>
+&bull; The <span class="sb">imgbrowse</span> plugin is pre installed, to use it in your pages with this CKEditor, specify this parameter in your page in CKEditor configuration: &nbsp; <span class="sbi">filebrowserImageBrowseUrl</span><br>
+Example:
+<pre>
+CKEDITOR.replace('content', {
+  'extraPlugins': 'doksoft_backup,doksoft_stat,zoom',
+  'filebrowserImageBrowseUrl': '/path_to/ckeditor/plugins/imgbrowse/imgbrowse.html?imgroot=PATH_TO_IMAGE_FOLDER',
+  'filebrowserImageUploadUrl': '/path_to/ckeditor/plugins/iaupload.php',
+});
+CKEDITOR.config.extraAllowedContent = 'audio[*]{*}';  //to allow audio tag
+</pre>
+The <span class="si">'extraPlugins': 'doksoft_backup,doksoft_stat,zoom',</span> enable other extra plugins installed in this CKEditor.<br><br>
+- The path to the image folder (PATH_TO_IMAGE_FOLDER) is necessary ONLY IF YOU NOT SET THIS VALUE in "<span class="sbi">imgbrowse.php</span>". This value <span class="sb">MUST BE RELATIVE TO THE ROOT OF YOUR WEBSITE ON SERVER</span>, for example: "<span class="sbi">imgroot=/your_img_dir</span>".<br/><br/>
+- You can set the path to the folder with images in the "<span class="sbi">plugins/imgbrowse/imgbrowse.php</span>" file, to the <span class="sb">$root</span> property (Line 6). In this case you NOT NEED TO ADD the <span class="sb">?imgroot=PATH_TO_IMAGE_FOLDER</span> in the "filebrowserImageBrowseUrl".
+<br><br>
+<blockquote class="sbi">- For comments, questions, or any issue related to the Image Browse and Upload Plugins, write on <a href="http://coursesweb.net/forum/" title="Forum CoursesWeb.net">Forum CoursesWeb</a>, in the "Scripts from Website" category.</blockquote>
+<br><br>
+Script from: <a href="http://coursesweb.net/javascript/ckeditor-image-browse_s2" title="CoursesWeb.net JavaScript">http://coursesweb.net/javascript/ckeditor-image-browse_s2</a>
+
+<script src="ckeditor/ckeditor.js"></script>
+<script>
+// <![CDATA[
+if(CKEDITOR) {
+  CKEDITOR.replace('content', {
+    'extraPlugins': 'doksoft_backup,doksoft_stat,zoom',
+    'filebrowserImageBrowseUrl': 'ckeditor/plugins/imgbrowse/imgbrowse.html',
+    'filebrowserImageUploadUrl': 'ckeditor/plugins/iaupload.php'
+//    extraAllowedContent: 'audio[*]{*}',
+  });
+  CKEDITOR.config.extraAllowedContent = 'audio[*]{*}';
+}
+// ]]>
+</script>
+</body>
+</html>
